@@ -1,0 +1,280 @@
+body {
+	background: url(../images/bg2.gif);
+}
+
+#container {
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: #999;
+	border-width: 1px;
+	width: 800px;
+}
+
+.slider-group {
+	width: 750px;
+	height: 433px;
+	padding-top: 20px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 20px;
+	background-color: #FFF;
+}
+
+.slider-box {
+	overflow: hidden;	
+}
+
+.slider-box {
+	height: 433px;
+	width: 100%;
+	display: block;
+}
+
+.slider-item {
+	height: 433px;
+	width: 300%;
+	position: relative;
+	left: -750px;
+	display: block;
+}
+
+.slider-item img {
+	height: 433px;
+	width: 750px;	
+	display: inline;
+}
+
+#img-1 {
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 2s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-transition-delay: 0s;
+}
+
+#img-2 {
+	position: relative;
+	left: 750px;
+	-webkit-transition-property: opacity, left;
+	-webkit-transition-duration: 1s, 2s;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out;	
+	-webkit-transition-delay: 0s, 0s;
+}
+
+#img-3 {
+	-webkit-transition-property: -webkit-transform, left;
+	-webkit-transition-duration: 2s, 2s;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out;
+	-webkit-transition-delay: 0s, 0s;
+	z-index: 2;
+}
+
+.slide-left {
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 2s;
+	-webkit-transition-timing-function: ease-in-out;
+	-webkit-transition-delay: 0s;	
+}
+
+/*
+.slider-item img:hover {
+	opacity: 0.5;
+}
+*/
+
+.image-toggle {
+	background-color: rgba(255,255,255,0.6);
+	position: absolute;
+	display: block;
+	padding: 15px 20px;
+	top: 32%;
+	opacity: 0.5;
+}
+
+#toggle-left {
+	left: 280px;
+}
+
+#toggle-right {
+	right: 280px;
+}
+
+.image-toggle i {
+	display: block;
+	width: 21px;
+	height: 41px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+#toggle-left i {
+	background-image: url(http://www.sinaimg.cn/dy/deco/2014/0212/images/bg.png);
+	background-position: 0px -230px;
+	background-repeat: no-repeat;
+}
+
+#toggle-right i {
+	background-image: url(http://www.sinaimg.cn/dy/deco/2014/0212/images/bg.png);
+	background-position: -80px -230px;
+	background-repeat: no-repeat;	
+}
+
+.comment-wrap {
+	width: 800px;
+	background-color: #FFF;	
+	margin-top: 20px;
+}
+
+.c-title {
+	background-color: rgb(243, 243, 243);
+	height: 46px;
+	display: block;
+	font-family: 微软雅黑, 宋体;
+	font-size: 16px;
+}
+
+#cmenu {
+	display: block;
+	float: left;
+	text-align: center;
+	width: 100px;
+	height: 46px;
+	line-height: 46px;
+}
+
+.comment-area {
+	display: block;
+	padding-top: 15px;
+	font-family: 微软雅黑, 宋体;
+	line-height: 20px;
+}
+
+.comment-item {
+	border-bottom-color: rgb(204,204,204);
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	display: block;
+	font-family: 微软雅黑, 宋体;
+	height: 127px;
+	line-height: 20px;	
+}
+
+.user-info {
+	display: block;
+	height: 20px;
+	line-height: 20px;
+	padding-left: 30px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.user-name {
+	display: inline;
+	font-size: 12px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	line-height: 20px;	
+	color: rgb(102,102,102);
+}
+
+.user-place {
+	display: inline;
+	font-size: 12px;
+	padding-left: 15px;
+	line-height: 20px;
+	color: rgb(153,153,153);	
+}
+
+.comment-text {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 30px;
+	font-family: 'Microsoft Yahei', 微软雅黑, 宋体, SimSun;
+	display: block;
+	line-height: 20px;
+}
+
+.txt {
+	color: rgb(51,51,51);
+	font-size: 14px;
+	height: 22px;
+	line-height: 22px;	
+}
+
+.choices {
+	margin-top: 30px;
+	font-size: 12px;
+	display: block;
+	height: 24px;
+	line-height: 20px;	
+	text-align: right;
+	padding-right: 20px;
+}
+
+.forward, .reply {
+	padding-left: 5px;	
+}
+
+.datetime {
+	color: rgb(153, 153, 153);
+	display: block;
+	float: left;
+	font-family: arial;
+}
+
+.page-button {
+	display: block;
+	font-family: 'Microsoft Yahei', 微软雅黑,	 宋体;
+	font-size: 12px;
+	height: 22px;
+	line-height: 20px;
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+.turn {
+	float: right;
+	display: block;
+	width: 105px;
+	list-style: none;
+	margin: 0px;
+	padding-right: 20px;
+}
+
+.pre, .next {
+	float: right;
+	padding-left: 10px;
+}
+
+.pre a, .next a{
+	cursor: pointer;
+}
+
+.description {
+	display: block;
+	height: 120px;	
+	font-family: 'Microsoft Yahei', 微软雅黑,	 宋体;
+	line-height: 20px;
+	margin-top: -120px;
+	opacity: 0;
+	z-index: 1;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 1s;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+.d-title {
+	padding-top: 12px;
+	padding-bottom:	8px;
+	padding-left: 20px;
+	padding-right: 5px;
+	font-size: 20px;
+}
+
+.d-content {
+	padding-top: 10px;
+	padding-bottom:	10px;
+	padding-left: 20px;
+	padding-right: 10px;
+	font-size: 14px;
+}
