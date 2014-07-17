@@ -274,8 +274,8 @@ function loading(){
 	var kbInTotal = moduleInTotal * 100;
 	
 	function animateFunc(){
-		kbTemporary += 10;
 		if (kbTemporary <= moduleCompleted * 100) {
+			kbTemporary += 10;
 			loader.setValue(kbTemporary + 'kb');
 			loader.setProgress(kbTemporary / kbInTotal);
 		} else if (moduleCompleted == moduleInTotal) {
