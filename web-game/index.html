@@ -24,10 +24,44 @@
     <script type="text/javascript" src="js/interface.js"></script>
 </head>
 <body>
-	<audio id="sdExp" src="au/exp.wav" preload="load" style="visibility:hidden">
-   		Your browser does not support the audio element.
-	</audio>
+
+    <div id="side-bar">
+        <div id="major-role">
+            <span>·ω·</span>
+        </div>
+        <div id="instruction">
+            <span>移动：← →</span>
+            <span>跳跃：Ctrl</span>
+            <span>发射导弹：Space</span>
+            <span>调整发射方向：↑ ↓</span>
+            <span>三连击：Z</span>
+            <span>增加50%攻击：X</span>
+            <span>增加20%攻击：C</span>
+        </div>
+    </div>
+
+    <!--_________________________-->
+    <audio id="bkbt" src="au/button.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkexp" class="bkexp" src="au/exp.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkexp1" class="bkexp" src="au/exp.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkexp2" class="bkexp" src="au/exp.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkexp3" class="bkexp" src="au/exp.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkfr" src="au/fire.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkwk" src="au/walk.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkdt" src="au/dirt1.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkpk" class="bkpk" src="au/pick.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkpk1" class="bkpk" src="au/pick.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkpk2" class="bkpk" src="au/pick.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkpk3" class="bkpk" src="au/pick.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bktn" src="au/turn.wav" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkvk" src="au/vik.mp3" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkcw" class="bkcw" src="au/crow.mp3" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkcw1" class="bkcw" src="au/crow.mp3" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkcw2" class="bkcw" src="au/crow.mp3" preload="auto" style="visibility:hidden"></audio>
+	<audio id="bkcw3" class="bkcw" src="au/crow.mp3" preload="auto" style="visibility:hidden"></audio>
 	<div id="film" class="smallerSize">
+		<audio id="bk1" src="au/gtr.mp3" style="visibility:hidden" loop></audio>
+		<audio id="bkm" src="au/zg.mp3" style="visibility:hidden" loop></audio>
     	<div id="backG" class="smallerSize"></div>
     	    <div id="widget" class="smallerSize">
                 <div id="redBlood">
@@ -52,6 +86,8 @@
 		</canvas>  
 	</div>
     <!--_________________________-->
+
+
     <div id="box">
 		
         <div id="starting-image">
@@ -70,22 +106,22 @@
         			<a id="choose-map" class="menu-char">MAP</a>
         		</div>
         		<div id="mode-menu" class="menu-button">
-        			<a id="choose-mode" class="menu-char">MODE</a>
+        			<a id="choose-mode" class="menu-char">ABOUT</a>
         		</div>
         	</div>
             
             <div id="menu-area-map">
             	<div class="map-preview-box">
-                	<img id="1-map" class="map-preview" src="file/terrain/1/pic.png"/>
+                	<img id="1-map" class="map-preview" src="file/terrain/1/s.png"/>
                 </div>
                 <div class="map-preview-box">
-                	<img id="2-map" class="map-preview" src="file/terrain/2/pic.png"/>
+                	<img id="2-map" class="map-preview" src="file/terrain/2/s.png"/>
                 </div>
                 <div class="map-preview-box">
-                	<img id="3-map" class="map-preview" src="resources/3.jpg"/>
+                	<img id="3-map" class="map-preview" src="file/terrain/3/s.png"/>
                 </div>
                 <div class="map-preview-box">
-                	<img id="4-map" class="map-preview" src="resources/9.jpg"/>
+                	<img id="4-map" class="map-preview" src="file/terrain/4/s.png"/>
                 </div>
                 <div class="map-preview-box">
                 	<img id="5-map"class="map-preview" src="resources/10.jpg"/>
@@ -94,8 +130,19 @@
                 	<img id="6-map" class="map-preview" src="resources/11.jpg"/>
                 </div>
                 
-                <div id="ok-return">
-                	<span id="ok-button">OK</span>
+                <div class="ok-return">
+                	<span class="ok-button">OK</span>
+                </div>
+            </div>
+
+            <div id="menu-area-about">
+                <div id="about-content">
+                    <span>Developers: </span>
+                    <span>ZhaoLeiyu</span>
+                    <span>LiuJunlin</span>
+                </div>
+                <div class="ok-return">
+                    <span class="ok-button">OK</span>
                 </div>
             </div>
         	

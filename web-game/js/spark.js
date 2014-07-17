@@ -1,3 +1,4 @@
+//烂尾的对象... 原设定为炸坏地形产生的火花
 //*******************************************
 //An object should contain the following attributes:
 //---type:(player, entity)

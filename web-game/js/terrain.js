@@ -1,7 +1,13 @@
-var ter_pics=[];
-var ter_mapInfo={};
+//***********************
+//LATEST EDIT: 7/16 22:27
+//About terrain
+//BY LEVY
+//***********************
 
-function getTerrain(id)
+var ter_pics=[];	//地形贴图
+var ter_mapInfo={};	//地图玩家出生点信息
+
+function getTerrain(id)	//加载贴图
 {
 	var x1=new Image;
 	x1.onload=function()
@@ -24,7 +30,7 @@ function getTerrain(id)
 	x1.src="file/terrain/"+id+"/pic.png";
 	ter_pics.push(x1);
 }
-function initTerrain(id)
+function initTerrain(id)	//根据贴图生成碰撞数组，初始化
 {
 	var img=new Image;
 	globalTerrain.rawData=[];
@@ -38,6 +44,7 @@ function initTerrain(id)
 	{
 		var canvas=$("#canvas1")[0];
 		var context=canvas.getContext("2d");
+		context.clearRect(0,0,WIDTH,HEIGHT);
 		context.drawImage(this, 0, 0);
 		
 		var imageData=context.getImageData(0,0,WIDTH,HEIGHT);
@@ -70,13 +77,15 @@ function initTerrain(id)
 	}
 	img.src="file/terrain/"+id+"/pic.png";
 }
-function refreshTerrain(x,y,w,h)	//ATTENTION: OVERFLOW
+function refreshTerrain(x,y,w,h)	//根据爆炸毁坏数组重绘部分炸坏的地形
 {
 	var context=$("#canvas1")[0].getContext("2d");
 	var imageData=context.getImageData(x,y,w,h);
     var data=imageData.data;
 	var ct=0;
 	for (var i=y;i<y+h;i++)
+	{
+		if (i>=HEIGHT) break;
 		for (var j=x;j<x+w;j++)
 		{
 			if (globalTerrain.ruin[i][j])
@@ -86,5 +95,6 @@ function refreshTerrain(x,y,w,h)	//ATTENTION: OVERFLOW
 			}
 			ct++;
 		}
+	}
 	context.putImageData(imageData,x,y);
 }

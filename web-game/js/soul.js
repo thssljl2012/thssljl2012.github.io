@@ -25,9 +25,9 @@
 //*******************************************
 //Levy. Jul 13.
 
-var st_soul_img;
+var st_soul_img;	//灵魂贴图
 
-function soul_OnDraw(context)
+function soul_OnDraw(context)	//绘制灵魂
 {
 	if (this.position[1]<=MAP_MARGIN) 
 	{
@@ -42,12 +42,12 @@ function soul_OnDraw(context)
 	context.drawImage(st_soul_img,0,0);
 	context.restore();
 }
-function soul_OnSpawn(x,y)	
+function soul_OnSpawn(x,y)		//灵魂出生
 {
 	this.position[0]=x;
 	this.position[1]=y;
 }
-function soul(id)
+function soul(id)	//灵魂构造函数，玩家死亡时放置，向上飞。
 {
 	this.type="anime";
 	this.id=id;
@@ -59,7 +59,7 @@ function soul(id)
 	this.onDraw=soul_OnDraw;
 	this.onSpawn=soul_OnSpawn;
 }
-function initSoul()
+function initSoul()	//加载贴图
 {
 	st_soul_img=new Image;
 	st_soul_img.onload=function()

@@ -24,15 +24,15 @@
 //---------onSpawn:function
 //*******************************************
 //Levy. Jul 13.
-var st_missileSize;
-var st_missileCentre={};
-var st_missileBody={};
-var st_missileColor;
-var st_missileBlastRadius=45;
-var st_blastForce=5000;
-var st_maxInjury=50;
+var st_missileSize;	//导弹贴图尺寸
+var st_missileCentre={};	//导弹判定中心
+var st_missileBody={};	//导弹身体信息
+var st_missileColor;	//导弹贴图
+var st_missileBlastRadius=45;	//爆炸半径
+var st_blastForce=5000;	//炸飞速度
+var st_maxInjury=50;	//爆炸威力
 
-function missile_OnDraw(context)
+function missile_OnDraw(context)	//导弹绘制，并根据速度确定方向角
 {
 	this.count++;
 	if (this.position[1]<=MAP_MARGIN) return;
@@ -53,8 +53,11 @@ function missile_OnDraw(context)
 	context.drawImage(st_missileColor,0,0);
 	context.restore();
 }
-function missile_OnSpawn(x,y,angle,force,dirConst)	//in rad
+function missile_OnSpawn(x,y,angle,force,dirConst)	//in rad，导弹发射
 {
+	$("#bkfr")[0].pause();
+	$("#bkfr")[0].currentTime=0;
+	$("#bkfr")[0].play();
 	console.log(force);
 	this.count=0;
 	this.position[0]=x;
@@ -63,7 +66,7 @@ function missile_OnSpawn(x,y,angle,force,dirConst)	//in rad
 	this.velocity[1]=-(this.flyMax*force/100)*Math.sin(angle);
 	console.log(this);
 }
-function missile_Blast()
+function missile_Blast()	//爆炸，毁坏范围内地形以及炸飞范围内玩家
 {
 	function calc_Euclid_Dis(pos1,pos2)
 	{
@@ -109,12 +112,17 @@ function missile_Blast()
 	}
 	refreshTerrain(blastCentre[0]-st_missileBlastRadius,blastCentre[1]-st_missileBlastRadius,st_missileBlastRadius*2+1,st_missileBlastRadius*2+1);
 }
-function missile_OnCrush()
+function missile_OnCrush()	//受冲撞爆炸
 {
 	this.canEliminate=true;
+	var i=0;
+	while (i<3 && (!($(".bkexp")[i].ended || $(".bkexp")[i].paused))) i++;
+	$(".bkexp")[i].pause();
+	$(".bkexp")[i].currentTime=0;
+	$(".bkexp")[i].play();
 	this.blast();
 }
-function missile(id,pwd)
+function missile(id,pwd)	//导弹类构造函数，参数二为威力加成
 {
 	if (pwd==undefined)
 		this.powerC=1;
@@ -137,7 +145,7 @@ function missile(id,pwd)
 	this.onSpawn=missile_OnSpawn;
 	this.onCrush=missile_OnCrush;
 }
-function initMissile()
+function initMissile()	//加载导弹贴图
 {
 	$.get("file/entity/missile/info.json",function(data)
 	{

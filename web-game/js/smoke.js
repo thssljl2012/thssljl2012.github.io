@@ -24,9 +24,9 @@
 //---------onSpawn:function
 //*******************************************
 //Levy. Jul 13.
-var st_smoke_img={};
+var st_smoke_img={};	//烟贴图
 
-function smoke_OnDraw(context)
+function smoke_OnDraw(context)	//绘制烟
 {
 	this.count+=1/FPS;
 	if (this.lifeTime<=this.count)
@@ -44,17 +44,17 @@ function smoke_OnDraw(context)
 	context.drawImage(st_smoke_img[this.kind],0,0);
 	context.restore();
 }
-function smoke_OnSpawn(x,y,lt)	//in rad
+function smoke_OnSpawn(x,y,lt)	//in rad - 烟出生
 {
 	this.position[0]=x;
 	this.position[1]=y;
-	this.count=0;
+	this.count=0;	//已经过的时间
 	if (lt==undefined) 
-		this.lifeTime=1;
+		this.lifeTime=1;	//总时间，过后该对象便消失
 	else
 		this.lifeTime=lt;
 }
-function smoke(id,kind,vex)
+function smoke(id,kind,vex)	//烟的构造函数,kind决定颜色
 {
 	this.type="anime";
 	this.id=id;
@@ -72,7 +72,7 @@ function smoke(id,kind,vex)
 	this.onDraw=smoke_OnDraw;
 	this.onSpawn=smoke_OnSpawn;
 }
-function initSmoke()
+function initSmoke()	//初始化贴图
 {
 	st_smoke_img.gray=new Image;
 	st_smoke_img.gray.onload=function()

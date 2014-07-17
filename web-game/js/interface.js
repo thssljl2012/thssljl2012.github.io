@@ -1,12 +1,14 @@
-var moduleCompleted = 0;
-var moduleInTotal = 20;	//NEW!! in 7
-var chosenMapImg = 2;
-var startButtonClicked = false;
+var moduleCompleted = 0; //已完成资源加载数
+var moduleInTotal = 22;	//总共需要加载的资源数
+var chosenMapImg = 2;//默认地图编号
+var startButtonClicked = false; //是否已经按下开始键
 
+//已完成加载的资源计数
 function addGlobalFlag(){
 	moduleCompleted++;
 }
 
+//游戏结束跳转页面
 function goToEndingPage(arg){
 	
 	$('#winner').html(arg).css("font-size","80px");
@@ -21,6 +23,7 @@ function goToEndingPage(arg){
 }
 
 
+//前端各按钮的事件绑定
 function bindEventsToButtons(){
 	
 	function rotateImages(jQuery, deg){
@@ -69,6 +72,10 @@ function bindEventsToButtons(){
 		} else {
 			startButtonClicked = true;
 
+		$("#bkbt")[0].pause();
+		$("#bkbt")[0].currentTime=0;
+		$("#bkbt")[0].play();
+
 			startGame(chosenMapImg);
 		}
 	});
@@ -78,6 +85,9 @@ function bindEventsToButtons(){
 		if (startButtonClicked) {
 			event.preventDefault();
 		} else {
+			$("#bkbt")[0].pause();
+			$("#bkbt")[0].currentTime=0;
+			$("#bkbt")[0].play();
 
 			$('.map-preview:eq('+ (chosenMapImg - 1) +')').css("border-color","#9AC0CD");
 			$('#menu-area-map').fadeIn("slow",function(){
@@ -91,14 +101,52 @@ function bindEventsToButtons(){
 		}
 		
 	});
+
+	$('#choose-mode').click(function(){
+		if (startButtonClicked) {
+			event.preventDefault();
+		} else {
+			$("#bkbt")[0].pause();
+			$("#bkbt")[0].currentTime=0;
+			$("#bkbt")[0].play();
+
+			$('#menu-area-about').fadeIn("slow",function(){
+				$(this).css("display","block");
+			});
+			$('#widget-area').fadeOut("fast");
+			$('#game-title').css("top","20px");
+			$('#start-menu').css("visibility","hidden");
+			$('#map-menu').css("visibility","hidden");
+			$('#menu-area').css("top","-40px");
+		}
+	});
 	
 	
-	$('#ok-button').click(function(){
-		$('#menu-area-map').fadeOut("slow",function(){
-			$(this).css("display","none");
-		});
+	$('.ok-button').click(function(){
+		$("#bkbt")[0].pause();
+		$("#bkbt")[0].currentTime=0;
+		$("#bkbt")[0].play();
+
+		if ($('#menu-area-map').css("display") == "block") {
+			$('#menu-area-map').fadeOut("slow",function(){
+				$(this).css("display","none");
+			});
+		}
+		if ($('#menu-area-about').css("display") == "block") {
+			$('#menu-area-about').fadeOut("slow",function(){
+				$(this).css("display","none");
+			});
+		}
+		
 		$('#menu-area').css("top","260px");
-		$('#mode-menu').css("visibility","visible");
+
+		if ($('#mode-menu').css("visibility") == "hidden") {
+			$('#mode-menu').css("visibility","visible");
+		}
+		if ($('#map-menu').css("visibility") == "hidden") {
+			$('#map-menu').css("visibility","visible");
+		}
+
 		$('#start-menu').css("visibility","visible");
 		$('#game-title').css("top","80px");
 		$('#widget-area').fadeIn("slow");
@@ -106,18 +154,29 @@ function bindEventsToButtons(){
 	
 	
 	$('.map-preview').click(function(){
-		for (var i = 0; i < $('.map-preview').length; i++) {
-			if ($('.map-preview:eq('+i+')').css("border-color") != "transparent") {
-				$('.map-preview:eq('+i+')').css("border-color","transparent");	
+		var t = parseInt($(this).attr("id")[0]);
+
+		if (t <= 4) {
+			for (var i = 0; i < $('.map-preview').length; i++) {
+				if ($('.map-preview:eq('+i+')').css("border-color") != "transparent") {
+					$('.map-preview:eq('+i+')').css("border-color","transparent");	
+				}
 			}
+			$(this).css("border-color","#9AC0CD");
+			chosenMapImg = t;
+			console.log(chosenMapImg);
 		}
-		$(this).css("border-color","#9AC0CD");
-		chosenMapImg = parseInt($(this).attr("id")[0]);
-		console.log(chosenMapImg);
+		
 	});
 	
 	
 	$('#return-home a').click(function(){
+		$("#bkbt")[0].pause();
+		$("#bkbt")[0].currentTime=0;
+		$("#bkbt")[0].play();
+		$("#bkm")[0].pause();
+		$("#bkm")[0].currentTime=0;
+		$("#bkm")[0].play();
 		$('#starting-image').css("top","0px");
 		setTimeout(
 			function(){
@@ -128,6 +187,7 @@ function bindEventsToButtons(){
 	});
 }
 
+//首页小配件晃动函数
 function vibrateWidgets(){
 	
 	function moveWidgets(jQuery){
@@ -185,9 +245,12 @@ function vibrateWidgets(){
 	
 }
 
+
+//加载首页
 function getFrontpage(){
 	
 	bindEventsToButtons();
+	$("#bkm")[0].play();
 	
 	$('#starting-image').css("visibility","visible");
 	
@@ -201,7 +264,7 @@ function getFrontpage(){
 	
 }
 
-
+//DOM准备就绪，开始加载资源，进度条显示
 function loading(){
 	
 	var loader = $('#loader').percentageLoader({controllable:false});

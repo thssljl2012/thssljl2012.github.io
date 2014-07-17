@@ -1,4 +1,46 @@
 /*
+CSS for background
+*/
+body {
+	background-image: url(../resources/bg1.png);
+	background-repeat: no-repeat;
+}
+
+/*
+CSS for sidebar
+*/
+
+#side-bar {
+	position: absolute;
+	top: 10px;
+	left: 1030px;
+	width: 230px;
+	min-height: 400px;
+	font-family: 'BabyDoll';
+	
+}
+
+#major-role {
+	font-size: 120px;
+	color: #EE1289;
+	margin-top: 60px;
+	margin-bottom: 100px;
+	display: block;
+}
+
+#instruction {
+	font-family: 'AngelCat';
+	font-size: 20px;
+	font-style: bold;
+	margin-top: 230px;
+}
+
+#instruction span {
+	display: block;
+	margin-bottom: 5px;
+}
+
+/*
 CSS for loading page
 */
 
@@ -48,7 +90,6 @@ CSS for loading page
 	top: 170px;
 	left: 370px;
 }
-
 
 
 
@@ -174,7 +215,7 @@ CSS for frontpage
 
 #widget-8 {
 	position: absolute;
-	left: 345px;
+	left: 335px;
 	top: 415px;	
 	
 	transition: all 1s ease-in-out 0s;
@@ -229,19 +270,47 @@ CSS for map-choosing page
 	cursor: pointer;
 }
 
-#ok-return {
+.ok-return {
 	font-family: 'BabyDoll';
 	font-size: 48px;
 	text-align: center;
 	color: #7FFFD4;
 }
 
-#ok-return span {
+.ok-return span {
 	cursor: pointer;	
 }
 
-#ok-return span:hover {
+.ok-return span:hover {
 	font-size: 60px;
+}
+
+
+/*
+CSS for about area
+*/
+
+#menu-area-about {
+	position: absolute;
+	top: 180px;
+	left: 90px;
+	height: 360px;
+	width: 800px;
+	padding: 20px;
+	display: none;
+}
+
+#about-content {
+	font-family: 'AngelCat';
+	font-size: 60px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#about-content span {
+	display: block;
+	margin-bottom: 10px;
 }
 
 

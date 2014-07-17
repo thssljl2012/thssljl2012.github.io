@@ -25,13 +25,14 @@
 //*******************************************
 //LATEST EDIT: 7/14 22:27
 //Levy. Jul 13.
-var st_PlayerBuffer={};
-var st_FaceBuffer={};
-var st_PlayerInfo={};
-var st_PlayerWidth=48;
+var st_PlayerBuffer={};	//玩家身体贴图
+var st_FaceBuffer={};	//玩家脸部贴图
+var st_PlayerInfo={};	//玩家判定点信息
+var st_PlayerWidth=48;	
 var st_PlayerHeight=32;
-
-function approxGrad(x,y)
+var st_walkRound=FPS/4-1;	
+//走路声刷新时间
+function approxGrad(x,y)	//估计当前位置斜率
 {
 	var delta=0;
 	if (globalTerrain.rawData[y][x])
@@ -45,7 +46,7 @@ function approxGrad(x,y)
 	}
 	return -delta;
 }
-function player_OnDraw(context)
+function player_OnDraw(context)	//绘制角色函数，根据地形斜率确定面部角度
 {
 	if (this.position[1]<=MAP_MARGIN) return;
 	if (this.status=="die") return;
@@ -96,13 +97,13 @@ function player_OnDraw(context)
 	
 	context.restore();
 }
-function player_OnSpawn(x,y)
+function player_OnSpawn(x,y)	//出生函数
 {
 	this.position[0]=x;
 	this.position[1]=y;
 	this.health=MAX_HEALTH;
 }
-function player_OnCrush()
+function player_OnCrush()	//撞到地形后的反弹函数
 {
 	function sgn(num)
 	{
@@ -121,6 +122,7 @@ function player_OnCrush()
 		
 	var k=(approxGrad(posX+SAMPLE_RANGE,posY)-approxGrad(posX-SAMPLE_RANGE,posY))/(2*SAMPLE_RANGE);	
 	this.faceAngle=-Math.atan(k);
+
 	
 	var tX=this.velocity[0]*this.elaticity,tY=this.velocity[1]*this.elaticity;
 	if (this.elaticity==0) 
@@ -143,20 +145,23 @@ function player_OnCrush()
 		this.velocity[1]=tY;
 	}
 }
-function player_onJump()
+function player_onJump()	//跳跃函数
 {
 	if (this.energy<12) return;
 	this.energy-=12;
 	this.velocity[1]-=JUMP_FORCE;
 	this.elaticity=0;
 	this.haveLean=false;
+	$("#bkwk")[0].pause();
+	$("#bkwk")[0].currentTime=0;
+	$("#bkwk")[0].play();
 	if (this.status=="crawl")
 	{
 		this.velocity[0]+=(this.orientation=="l"?-1*JUMP_LONG:JUMP_LONG);
 	}
 	this.status="fly";
 }
-function player_onCrawl(direction)	//'l'-'r'
+function player_onCrawl(direction)	//'l'-'r' 爬行函数
 {
 	if (this.energy<1) return;
 	this.energy-=1;
@@ -172,11 +177,19 @@ function player_onCrawl(direction)	//'l'-'r'
 	{
 		while (measure>-CANNOT_WALK && !globalTerrain.rawData[pY-measure+1][pX+dirVal]) measure--;
 	}
+	st_walkRound++
+	if (st_walkRound==FPS/4)
+	{
+		$("#bkwk")[0].pause();
+		$("#bkwk")[0].currentTime=0;
+		$("#bkwk")[0].play();
+		st_walkRound=0;
+	}
 	this.position[0]+=dirVal;
 	this.position[1]-=measure;
 	return true;
 }
-function player_onLean(direction)
+function player_onLean(direction)	//空推函数(即跳起的空中一次变向机会)
 {
 	if (this.energy<3) return;
 	this.energy-=3;
@@ -185,7 +198,7 @@ function player_onLean(direction)
 	this.haveLean=true;
 	this.velocity[0]+=dirVal*LEAN_FORCE;
 }
-function player_onLaunch(angle,force,is3)	//angle in degree
+function player_onLaunch(angle,force,is3)	//angle in degree. 发射火箭，第三个参数指明是否为三叉戟副箭
 {
 	var dirVal=(this.orientation=='l'?-1:1);
 	var lauchPlacex=this.position[0]+dirVal*(PLAYER_PIC_WIDTH-st_PlayerInfo[this.appear].cx)*Math.cos(this.faceAngle);
@@ -221,7 +234,7 @@ function player_onLaunch(angle,force,is3)	//angle in degree
 	this.operate="idle";
 	globalFocus=globalObjects.length-1;
 }
-function player_onReady()
+function player_onReady()	//蓄力
 {
 	this.operate="ready";
 	if (this.lForce<100)
@@ -232,46 +245,59 @@ function player_onReady()
 	else
 		this.onLaunch(st_aimer_angle,this.lForce);
 }
-function player_onHit(injury)
+function player_onHit(injury)	//击中伤血
 {
+	if (this.status=="die") return;
 	this.health-=injury;
 	if (this.health<=0) this.onDie();
 }
-function player_onDie(injury)
+function player_onDie(injury)	//死亡
 {
+	if (this.status=="die") return;
 	this.status="die";
 	this.health=0;
 	if (this.id==globalFocus)
 		nextPlay(-1);
+	var i=0;
+	while (i<3 && (!($(".bkcw")[i].ended || $(".bkcw")[i].paused))) i++;	
+	$(".bkcw")[i].pause();
+	$(".bkcw")[i].currentTime=0;
+	$(".bkcw")[i].play();
+	
 	var sl=new soul();
 	sl.onSpawn(this.position[0],this.position[1]);
 	globalObjects.push(sl);
 }
-function player_enchantez(type)
+function player_enchantez(type)	//使用道具
 {
 	if (this.energy<st_enchante_energy[type]) return;
 	this.energy-=st_enchante_energy[type];
+	var i=0;
+	while (i<3 && (!($(".bkpk")[i].ended || $(".bkpk")[i].paused))) i++;
+	$(".bkpk")[i].pause();
+	$(".bkpk")[i].currentTime=0;
+	$(".bkpk")[i].play();
 	this.enchanter.push(type);
 	
 	var sl=new enchante(1,type);
 	sl.onSpawn(this.position[0],this.position[1]-50);
 	globalObjects.push(sl);
 }
-function player(id,appear)
+function player(id,appear)	//玩家对象的构造函数
 {
 	this.type="player";
 	this.status="stand";
 	this.operate="idle";
 	this.id=id;
-	this.g=220;
-	this.windVul=0;
+	this.g=220;	//重力加速度
+	this.windVul=0;	//风敏感性
 	this.position=[0,0];
 	this.velocity=[0,0];
 	this.orientation="l";
 	this.faceAngle=0;
-	this.appear=appear;
-	this.canEliminate=false;
-	this.haveLean=true;
+	this.appear=appear;	//决定玩家队伍
+	this.canEliminate=false;	
+	this.haveLean=true;	//此次跳跃是否空推
 	this.onDraw=player_OnDraw;
 	this.onSpawn=player_OnSpawn;
 	this.onCrush=player_OnCrush;
@@ -284,11 +310,11 @@ function player(id,appear)
 	this.onDie=player_onDie;
 	this.onEnchantez=player_enchantez;
 	this.enchanter=[];
-	this.elaticity=this.elaticity_back=0.4;
+	this.elaticity=this.elaticity_back=0.4;	//弹性系数
 	this.lForce=0;
 	this.energy=MAX_ENERGY;
 }
-function initPlayerPic(name,flagPos)
+function initPlayerPic(name,flagPos)	//加载贴图
 {
 	st_PlayerBuffer[name]=new Image;
 	st_PlayerBuffer[name].height=PLAYER_PIC_HEIGHT;

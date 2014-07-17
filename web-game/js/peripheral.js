@@ -1,9 +1,14 @@
+//***********************
+//LATEST EDIT: 7/14 22:27
+//外围资源加载
+//BY LEVY
+//***********************
 var st_aimer;
 var st_aimer_info={width:60,height:60};
 var st_aimer_angle;	//deg
 var st_arrow;
 
-function initAimer()
+function initAimer()	//加载瞄准器
 {
 	st_aimer=new Image;
 	st_aimer.width=st_aimer_info.width;
@@ -15,7 +20,7 @@ function initAimer()
 	}
 	st_aimer.src="file/entity/aim/pic.png";
 }
-function drawAimer(x,y,angle,dir)	//rad
+function drawAimer(x,y,angle,dir)	//rad，绘制瞄准器
 {
 	globalContext3.save();
 	
@@ -34,7 +39,7 @@ function drawAimer(x,y,angle,dir)	//rad
 	
 	globalContext3.restore();
 }
-function initArrow()
+function initArrow()	//加载指示玩家的箭头
 {
 	st_arrow=new Image;
 	st_arrow.onload=function()
